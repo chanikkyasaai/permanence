@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build and local outputs
+permanence_output/
+training/demo_output/
+dashboard/current_state.json
+ghost_recording.json
+
+# Environment and secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Node / frontend
+dashboard/node_modules/
+dashboard/dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
