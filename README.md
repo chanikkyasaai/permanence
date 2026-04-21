@@ -1,14 +1,82 @@
 # PERMANENCE
 
-PERMANENCE is a reinforcement-learning environment for decision irreversibility in corporate crisis simulations.
+PERMANENCE is a reinforcement-learning environment designed to train one missing capability in LLM agents: treating irreversible actions differently from reversible ones before those actions are taken.
 
-It models:
-- irreversible and semi-reversible actions (R1-R5)
-- downstream option lockout (causal action locks)
-- catastrophe penalties when high-risk actions are misclassified
-- live telemetry for a React dashboard
+Most RL environments reset away consequences. PERMANENCE intentionally does not reset within an episode. Early choices persist, constrain later options, and can permanently lock high-value follow-up actions.
 
-This repository includes training, evaluation, a judge sandbox, and an offline ghost playback path for demos.
+This project targets real deployment failure modes:
+- irreversible commitments made without proper internal preparation
+- misclassification of high-impact actions as low-risk actions
+- cascade lockouts where one premature action blocks later recovery paths
+- policies that either over-avoid or under-recognize irreversible moves
+
+The goal is not generic caution. The goal is accurate reversibility modeling under pressure.
+
+## Project Core
+
+PERMANENCE combines four mechanics that work together:
+
+1. Persistent world dynamics within each episode
+- The world state persists across steps in the same episode.
+- Actions update people, projects, and external trust/obligation state.
+- Locked actions are tracked with explicit causal provenance.
+
+2. Context-dependent reversibility levels (R1-R5)
+- Reversibility is computed at execution time from current world conditions.
+- The same action type may be low-risk in one state and high-risk in another.
+
+3. Prediction-first agent interface
+- Agent responses include `<thinking>`, `<action .../>`, and `<reversibility .../>`.
+- The environment scores what the agent predicted before acting, not just what happened.
+
+4. Catastrophe-aware reward shaping
+- Task completion, prediction quality, and option preservation are rewarded.
+- Asymmetric catastrophe penalties apply when severe actions are misclassified.
+
+## What Makes This Project Different
+
+- It trains judgment quality, not simple risk avoidance.
+- It supports mandatory irreversible decisions in some scenarios (agent must still act correctly).
+- It models downstream option preservation as a measurable objective.
+- It includes a live mission-control dashboard and offline ghost playback for resilient demos.
+
+## Scenario Suite
+
+The environment includes five progressive tasks:
+
+1. Correction
+- Handle internal correction and communication timing without unnecessary permanent external effects.
+
+2. Conflict
+- Resolve team conflict with an intervention level proportional to context.
+
+3. Launch
+- Choose among full launch, staged rollout, or delay under deadline pressure.
+
+4. Crisis
+- Mandatory public response under scrutiny; avoiding irreversible action is not always valid.
+
+5. Cascade
+- A hidden irreversible pivot can lock downstream recovery actions if executed too early.
+
+## System Outputs
+
+Training and evaluation produce operational artifacts beyond model weights:
+- structured state telemetry for dashboard visualization
+- catastrophe-rate trend data
+- action lock graphs with reasons
+- interactive judge-mode evaluation for custom scenarios
+- offline ghost recording for deterministic pitch playback
+
+## Implementation Status
+
+This repository includes implemented components across environment logic, training, evaluation, UI telemetry, and demo resilience:
+- Gym/OpenEnv-style environment (`reset` / `step`) with typed mutation engine
+- task bank + curriculum + holdout task protocol
+- SFT-to-GRPO training flow with Unsloth integration
+- real-time Flask + React dashboard contract
+- interactive judge sandbox for custom crisis prompts
+- ghost exporter and 2-second playback streaming mode
 
 ## What Is In This Repo
 
