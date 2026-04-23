@@ -1,25 +1,59 @@
 name: permanence
 version: 1.1.0
+spec_version: "0.1"
+entry_point: permanence
+
 description: >
   First OpenEnv environment with persistent within-episode world state.
   Trains agents to predict action reversibility before acting using
   consequence-propagating world mechanics where irreversible actions
   permanently close downstream option paths. R-levels are computed
-  from world state at execution time - not static tags.
+  from world state at execution time — not static tags.
 
-author: github-copilot
+author: chanikya
+email: chanikyac01@gmail.com
 huggingface_repo: chane35/permanence
+
+tags:
+  - openenv
+  - world-modeling
+  - long-horizon-planning
+  - reinforcement-learning
+  - agent-safety
+
+type: chat
+
+app:
+  module: server.app
+  object: app
+  port: 7860
 
 themes:
   primary: world_modeling
-  secondary: [long_horizon_planning]
+  secondary:
+    - long_horizon_planning
 
 tasks:
-  - {id: task_correction, difficulty: 1}
-  - {id: task_conflict, difficulty: 2}
-  - {id: task_launch, difficulty: 3}
-  - {id: task_crisis, difficulty: 4}
-  - {id: task_cascade, difficulty: 5}
+  - id: task_correction
+    difficulty: 1
+    description: Report error correction with irreversible external communication risk
+    score_range: [0.0, 1.0]
+  - id: task_conflict
+    difficulty: 2
+    description: Personnel conflict resolution with irreversible HR action risk
+    score_range: [0.0, 1.0]
+  - id: task_launch
+    difficulty: 3
+    description: Product launch decision with irreversible public commitment risk
+    score_range: [0.0, 1.0]
+  - id: task_crisis
+    difficulty: 4
+    description: Crisis response requiring mandatory irreversible action under time pressure
+    score_range: [0.0, 1.0]
+  - id: task_cascade
+    difficulty: 5
+    description: Multi-step resolution where premature action permanently locks all downstream steps
+    score_range: [0.0, 1.0]
 
 environment:
   observation_type: text
@@ -44,3 +78,10 @@ training:
   warmup_sft_episodes: 20
   gpu_hours: 7
   cost_usd: 20
+
+novelty:
+  - Within-episode persistent world state — no prior OpenEnv environment has this
+  - R-level computed from world state at runtime, not static tag
+  - Prediction accuracy as first-class reward component
+  - Symmetric penalty on misclassification — over-caution punished equally to under-caution
+  - Task 4 requires taking irreversible action correctly — proves no caution training

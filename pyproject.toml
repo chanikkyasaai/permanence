@@ -8,12 +8,25 @@ version = "1.1.0"
 description = "PERMANENCE reinforcement learning environment for action reversibility training"
 readme = "PERMANENCE_PROJECT_DESCRIPTION.md"
 requires-python = ">=3.10"
-license = {text = "Proprietary"}
-authors = [{name = "GitHub Copilot"}]
-dependencies = []
+license = {text = "MIT"}
+authors = [{name = "Chanikya", email = "chanikyac01@gmail.com"}]
+dependencies = [
+	"fastapi>=0.104.0",
+	"uvicorn>=0.24.0",
+	"pydantic>=2.0",
+	"requests>=2.25.0",
+	"openenv-core>=0.2.1",
+]
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
+train = [
+	"torch>=2.0",
+	"transformers>=4.40",
+	"trl>=1.0",
+	"datasets>=2.0",
+	"unsloth",
+]
 
 [tool.setuptools]
 include-package-data = true

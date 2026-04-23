@@ -18,6 +18,10 @@ permanence_output/
 training/demo_output/
 dashboard/current_state.json
 ghost_recording.json
+training/warmup_traces.jsonl
+
+# OpenEnv deployment artifacts
+.openenv/
 
 # Environment and secrets
 .env

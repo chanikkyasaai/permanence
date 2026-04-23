@@ -1,3 +1,18 @@
+---
+title: PERMANENCE
+emoji: 🔒
+colorFrom: purple
+colorTo: indigo
+sdk: docker
+pinned: false
+license: mit
+tags:
+	- openenv
+	- reinforcement-learning
+	- world-modeling
+	- agent-safety
+---
+
 # PERMANENCE
 
 PERMANENCE is a reinforcement-learning environment designed to train one missing capability in LLM agents: treating irreversible actions differently from reversible ones before those actions are taken.
